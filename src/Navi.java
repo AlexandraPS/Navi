@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Navi {
     public static void main(String[] args) {
@@ -15,7 +12,7 @@ public class Navi {
         map.put("Rimavska Sobota", List.of("Presov", "Kosice"));
         map.put("Kosice", List.of("Rimavska Sobota", "Lucenec"));
 
-        HashSet<String> visited = new HashSet<>();
+        HashMap<String, Integer> visited = new HashMap<>();
         String start = "Trencin";
         String finish = "Rimavska Sobota";
         ArrayList<String> toVisit = new ArrayList<>();
@@ -27,14 +24,14 @@ public class Navi {
             System.out.println("Ideme prechadzat: " + toVisit);
             for (String city : toVisit) {
                 System.out.println("Prave prechadzame: " + city);
-                visited.add(city);     //pridame navstivene mesto
-                if(city.equals(finish)) {
+                visited.put(city, wave);     //pridame navstivene mesto
+                if (city.equals(finish)) {
                     toVisit.clear(); //vynuluje zoznam miest,kt chceme prejst - skonci while
                     break;
                 }
-                for (String newCity: map.get(city)) { //prehladava zoznamy naviazane ku kazdemu mestu
+                for (String newCity : map.get(city)) { //prehladava zoznamy naviazane ku kazdemu mestu
                     System.out.println("Mozeme sa dostat do: " + newCity);
-                    if(!visited.contains(newCity) && !toVisit.contains(newCity)) {
+                    if (!visited.containsKey(newCity) && !toVisit.contains(newCity)) {
                         newToVisit.add(newCity);
                         System.out.println("Pridane");
                     } else System.out.println("Nepridane");
@@ -45,5 +42,23 @@ public class Navi {
             wave++;
         }
         System.out.println("Ste v cieli :)");
+        System.out.println(visited);
+        ArrayList<String> path = new ArrayList<>();
+        String city = finish;
+        wave--;
+        while (wave > 0) {
+            path.add(city);
+            for (String newCity : map.get(city)) {
+                if (visited.containsKey(newCity) && visited.get(newCity) == wave - 1) {
+                    city = newCity;
+                    break;
+                }
+            }
+            wave--;
+        }
+        path.add(start);
+        Collections.reverse(path); //otocime prvky v Arrayliste
+        System.out.println(path);
     }
 }
+
