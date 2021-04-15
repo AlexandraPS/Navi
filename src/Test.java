@@ -12,9 +12,8 @@ public class Test {
         map.put("Presov", List.of("Poprad", "Rimavska Sobota"));
         map.put("Rimavska Sobota", List.of("Presov", "Kosice"));
         map.put("Kosice", List.of("Rimavska Sobota", "Lucenec"));
+        map.put("Zvolen",List.of());
 
-        String start = "Trencin";
-        String finish = "Rimavska Sobota";
-        System.out.println(Navi.findPath(map,start,finish));
+        System.out.println(Navi.findPath(map,"Hlohovec","Kosice"));
     }
 }

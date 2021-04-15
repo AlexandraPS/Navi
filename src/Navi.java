@@ -1,9 +1,11 @@
 import java.util.*;
 
 public class Navi {
-    public static  ArrayList<String> findPath(HashMap<String,List<String>> map, String start, String finish) {
+    public static ArrayList<String> findPath(HashMap<String, List<String>> map, String start, String finish) {
 
-
+        if (!map.containsKey(start) || !map.containsKey(finish)) {
+            return null;
+        }
         HashMap<String, Integer> visited = new HashMap<>();
 
         ArrayList<String> toVisit = new ArrayList<>();
@@ -17,7 +19,7 @@ public class Navi {
                 System.out.println("Prave prechadzame: " + city);
                 visited.put(city, wave);     //pridame navstivene mesto
                 if (city.equals(finish)) {
-                    toVisit.clear(); //vynuluje zoznam miest,kt chceme prejst - skonci while
+                    newToVisit.clear(); //vynuluje zoznam novych miest,kt chceme prejst - skonci while
                     break;
                 }
                 for (String newCity : map.get(city)) { //prehladava zoznamy naviazane ku kazdemu mestu
@@ -34,6 +36,9 @@ public class Navi {
         }
         System.out.println("Ste v cieli :)");
         System.out.println(visited);
+        if (!visited.containsKey(finish)) {
+            return null;
+        }
         ArrayList<String> path = new ArrayList<>();
         String city = finish;
         wave--;
