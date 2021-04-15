@@ -1,20 +1,11 @@
 import java.util.*;
 
 public class Navi {
-    public static void main(String[] args) {
-        HashMap<String, List<String>> map = new HashMap<>();
-        map.put("Bratislava", List.of("Trencin", "Lucenec"));
-        map.put("Trencin", List.of("Bratislava", "Lucenec", "Liptovsky Mikulas"));
-        map.put("Lucenec", List.of("Bratislava", "Trencin", "Liptovsky Mikulas", "Kosice"));
-        map.put("Liptovsky Mikulas", List.of("Trencin", "Lucenec", "Poprad"));
-        map.put("Poprad", List.of("Presov", "Liptovsky Mikulas"));
-        map.put("Presov", List.of("Poprad", "Rimavska Sobota"));
-        map.put("Rimavska Sobota", List.of("Presov", "Kosice"));
-        map.put("Kosice", List.of("Rimavska Sobota", "Lucenec"));
+    public static  ArrayList<String> findPath(HashMap<String,List<String>> map, String start, String finish) {
+
 
         HashMap<String, Integer> visited = new HashMap<>();
-        String start = "Trencin";
-        String finish = "Rimavska Sobota";
+
         ArrayList<String> toVisit = new ArrayList<>();
         toVisit.add(start);
         int wave = 0;
@@ -59,6 +50,7 @@ public class Navi {
         path.add(start);
         Collections.reverse(path); //otocime prvky v Arrayliste
         System.out.println(path);
+        return path;
     }
 }
 
